@@ -6,10 +6,10 @@ Grocery Drone Delivery App
 
 ## Brief technology description
 
-React Hooks - Javascript library to render frontend
-Typescript - Used to program instead of vanilla javascript or reactjs
-GraphQL - Used to handle queries and run server connection between frontend and backend
-TypeORM - Is the ORM manager that connects to MySQL and proper database
+1. React Hooks - Javascript library to render frontend
+2. Typescript - Used to program instead of vanilla javascript or reactjs
+3. GraphQL - Used to handle queries and run server connection between frontend and backend
+4. TypeORM - Is the ORM manager that connects to MySQL and proper database
 
 ### To Run server
 
