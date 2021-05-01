@@ -50,7 +50,6 @@ function Login(props: LoginProps) {
 	`
 	const [loginUser, { loading }] = useLazyQuery(LOGIN_USER, {
 		onError: (err) => {
-			console.log(err)
 			//@ts-ignore
 			setErrors(err.graphQLErrors[0].extensions.errors)
 		},

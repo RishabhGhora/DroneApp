@@ -11,6 +11,22 @@ import md5 from 'md5'
 
 export default {
 	Query: {
+		getFullName: async (_: any, args: { Username: string }) => {
+			let { Username } = args
+			try {
+				const user = await User.findOne({
+					where: { Username },
+				})
+				if (!user) {
+					throw new AuthenticationError('Unauthenticated')
+				}
+
+				return user.FirstName + ' ' + user.LastName
+			} catch (err) {
+				console.log(err)
+				throw err
+			}
+		},
 		login: async (_: any, args: { Username: string; Pass: string }) => {
 			const { Username, Pass } = args
 			let errors: any = {}
@@ -166,21 +182,26 @@ export default {
 					errors.State = 'State must be 2 digits'
 				}
 				// Check if valid ccnumber
-				if (CcNumber.length !== 19) {
+				if (CcNumber.length !== 16) {
 					errors.CcNumber = 'Invalid Credit Card Number'
-				} else {
-					const num = CcNumber.split(' ')
-					for (let i = 0; i < num.length; i++) {
-						if (isNaN(num[i] as any)) {
-							errors.CcNumber = 'Invalid Credit Card Number'
-						}
-					}
 				}
 				// Check if valid CVV
 				if (isNaN(CVV as any) || CVV.length !== 3) {
 					errors.CCV = 'Invalid CVV Number'
 				}
 				// Check card exp date
+				if (EXP_DATE.split('-').length !== 3) {
+					errors.EXP_DATE = 'Date should be in YYYY-MM-dd format'
+				} else if (
+					EXP_DATE.split('-')[0].length !== 4 ||
+					EXP_DATE.split('-')[1].length > 2 ||
+					EXP_DATE.split('-')[2].length > 2
+				) {
+					errors.EXP_DATE = 'Date should be in YYYY-MM-dd format'
+				}
+				if (Object.keys(errors).length > 0) {
+					throw errors
+				}
 				const year = parseInt(EXP_DATE.split('-')[0])
 				const month = parseInt(EXP_DATE.split('-')[1])
 				const date = parseInt(EXP_DATE.split('-')[2])

@@ -17,6 +17,17 @@ import AdminCreateDrone from './components/AdminCreateDrone'
 import AdminCreateItem from './components/AdminCreateItem'
 import AdminViewCustomers from './components/AdminViewCustomers'
 import AdminCreateGroceryStore from './components/AdminCreateGroceryStore'
+import ManagerCreateChainItem from './components/ManagerCreateChainItem'
+import ManagerViewDroneTechs from './components/ManagerViewDroneTechs'
+import ManagerViewDrones from './components/ManagerViewDrones'
+import ManagerManageStores from './components/ManagerManageStores'
+import CustomerChangeCreditCardInfo from './components/CustomerChangeCreditCardInfo'
+import CustomerViewOrderHistory from './components/CustomerViewOrderHistory'
+import CustomerViewStoreItems from './components/CustomerViewStoreItems'
+import CustomerReviewOrder from './components/CustomerReviewOrder'
+import DroneTechViewStoreOrders from './components/DroneTechViewStoreOrders'
+import DroneTechOrderDetails from './components/DroneTechOrderDetails'
+import DroneTechTrackDroneDelivery from './components/DroneTechTrackDroneDelivery'
 
 function App() {
 	const [homeComp, setHomeComp] = useState('')
@@ -76,6 +87,61 @@ function App() {
 						<DynamicRoute
 							path="/adminviewcustomers"
 							component={AdminViewCustomers}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/managercreatechainitem"
+							component={ManagerCreateChainItem}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/managerviewdronetechnicians"
+							component={ManagerViewDroneTechs}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/managerviewdrones"
+							component={ManagerViewDrones}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/managermanagestores"
+							component={ManagerManageStores}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/customerchangecreditcardinfo"
+							component={CustomerChangeCreditCardInfo}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/customervieworderhistory"
+							component={CustomerViewOrderHistory}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/customerviewstoreitems"
+							component={CustomerViewStoreItems}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/customerrevieworder"
+							component={CustomerReviewOrder}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/dronetechviewstoreorders"
+							component={DroneTechViewStoreOrders}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/dronetechorderdetails"
+							component={DroneTechOrderDetails}
+							authenticated
+						/>
+						<DynamicRoute
+							path="/dronetechtrackdronedelivery"
+							component={DroneTechTrackDroneDelivery}
 							authenticated
 						/>
 					</Switch>

@@ -255,7 +255,8 @@ function Register(props: RegisterProps) {
 				>
 					<FormLabel>Card Number</FormLabel>
 					<Input
-						placeholder="1234 1234 1234 1244"
+						type="number"
+						placeholder="1234123412341244"
 						onChange={(e) => setCcNumber(e.target.value)}
 						value={CcNumber}
 					/>
@@ -270,6 +271,7 @@ function Register(props: RegisterProps) {
 					<FormControl isRequired isInvalid={customerErrors.CVV != null}>
 						<FormLabel>CVV</FormLabel>
 						<Input
+							type="number"
 							placeholder="123"
 							onChange={(e) => setCVV(e.target.value)}
 							value={CVV}
@@ -492,6 +494,7 @@ function Register(props: RegisterProps) {
 						<FormControl isRequired pl={2} isInvalid={errors.Zipcode != null}>
 							<FormLabel>Zip</FormLabel>
 							<Input
+								type="number"
 								placeholder="30308"
 								onChange={(e) => setZipcode(e.target.value)}
 								value={Zipcode}

@@ -13,7 +13,7 @@ interface SettingsProps {
 }
 function Settings(props: SettingsProps) {
 	const { toggleColorMode } = useColorMode()
-	const buttonBackgrouond = useColorModeValue('brand.blue', 'lime')
+	const buttonBackground = useColorModeValue('brand.blue', 'lime')
 
 	const clickedBack = () => {
 		props.history.push('/')
@@ -37,7 +37,7 @@ function Settings(props: SettingsProps) {
 					size="xs"
 					type="submit"
 					onClick={clickedBack}
-					background={buttonBackgrouond}
+					background={buttonBackground}
 				>
 					Back
 				</Button>

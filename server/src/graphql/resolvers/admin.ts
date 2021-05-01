@@ -8,33 +8,7 @@ import { getConnection } from 'typeorm'
 
 export default {
 	Query: {
-		viewCustomers: async (_: any, args: { Username: string }) => {
-			let { Username } = args
-			try {
-				// Check if user is Admin
-				const check = await Admin.findOne({
-					where: { Username },
-				})
-				if (!check) {
-					throw new AuthenticationError('Unauthenticated')
-				}
-
-				const customers = await getConnection().query(
-					`
-					select CUSTOMER.Username, CONCAT(USERS.FirstName, ' ', USERS.LastName) as Name, 
-					CONCAT(USERS.Street, ', ', USERS.City, ', ', USERS.State,', ',USERS.Zipcode) as Address
-					from CUSTOMER
-					join USERS
-					on CUSTOMER.Username = USERS.Username;
-					`
-				)
-				return customers
-			} catch (err) {
-				console.log(err)
-				throw err
-			}
-		},
-		viewFilteredCustomers: async (
+		viewCustomers: async (
 			_: any,
 			args: { Username: string; FirstName: string; LastName: string }
 		) => {
@@ -48,16 +22,55 @@ export default {
 					throw new AuthenticationError('Unauthenticated')
 				}
 
+				if (FirstName && LastName) {
+					const customers = await getConnection().query(
+						`
+						select CUSTOMER.Username, CONCAT(USERS.FirstName, ' ', USERS.LastName) as Name, 
+						CONCAT(USERS.Street, ', ', USERS.City, ', ', USERS.State,', ',USERS.Zipcode) as Address
+						from CUSTOMER
+						join USERS
+						on CUSTOMER.Username = USERS.Username
+						where USERS.FirstName like ? or USERS.LastName like ?;
+						`,
+						['%' + FirstName + '%', '%' + LastName + '%']
+					)
+					return customers
+				} else if (FirstName) {
+					const customers = await getConnection().query(
+						`
+						select CUSTOMER.Username, CONCAT(USERS.FirstName, ' ', USERS.LastName) as Name, 
+						CONCAT(USERS.Street, ', ', USERS.City, ', ', USERS.State,', ',USERS.Zipcode) as Address
+						from CUSTOMER
+						join USERS
+						on CUSTOMER.Username = USERS.Username
+						where USERS.FirstName like ?
+						`,
+						['%' + FirstName + '%']
+					)
+					return customers
+				} else if (LastName) {
+					const customers = await getConnection().query(
+						`
+						select CUSTOMER.Username, CONCAT(USERS.FirstName, ' ', USERS.LastName) as Name, 
+						CONCAT(USERS.Street, ', ', USERS.City, ', ', USERS.State,', ',USERS.Zipcode) as Address
+						from CUSTOMER
+						join USERS
+						on CUSTOMER.Username = USERS.Username
+						where USERS.LastName like ?
+						`,
+						['%' + LastName + '%']
+					)
+					return customers
+				}
+
 				const customers = await getConnection().query(
 					`
 					select CUSTOMER.Username, CONCAT(USERS.FirstName, ' ', USERS.LastName) as Name, 
 					CONCAT(USERS.Street, ', ', USERS.City, ', ', USERS.State,', ',USERS.Zipcode) as Address
 					from CUSTOMER
 					join USERS
-					on CUSTOMER.Username = USERS.Username
-					where USERS.FirstName = ? or USERS.LastName = ?;
-					`,
-					[FirstName, LastName]
+					on CUSTOMER.Username = USERS.Username;
+					`
 				)
 				return customers
 			} catch (err) {
@@ -403,7 +416,13 @@ export default {
 
 				// Check if input is empty
 				if (ItemName.trim() === '') {
-					errors.ItemName = 'Name cannot be empty'
+					errors.ItemName = 'Item Name cannot be empty'
+				}
+				if (ItemType.trim() === '') {
+					errors.ItemType = 'Item Type cannot be empty'
+				}
+				if (Organic.trim() === '') {
+					errors.Organic = 'Organic cannot be empty'
 				}
 				if (Origin.trim() === '') {
 					errors.Origin = 'Origin cannot be empty'
