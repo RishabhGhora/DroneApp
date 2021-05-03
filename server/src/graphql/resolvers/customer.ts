@@ -276,8 +276,15 @@ export default {
 					errors.LastName = 'Last Name does not match our records'
 				}
 				// Check if valid ccnumber
-				if (CcNumber.length !== 16) {
-					errors.CcNumber = 'Invalid Credit Card Number'
+				const CcNumberParts = CcNumber.split(' ')
+				if (CcNumber.length !== 19 || CcNumberParts.length !== 4) {
+					errors.CcNumber =
+						'Invalid Credit Card number should be in **** **** **** **** format'
+				}
+				for (let i = 0; i < CcNumberParts.length; i++) {
+					if (isNaN(CcNumberParts[i] as any)) {
+						errors.CcNumber = 'Credit Card number should only contain number'
+					}
 				}
 				// Check if valid CVV
 				if (isNaN(CVV as any) || CVV.length !== 3) {
@@ -449,12 +456,7 @@ export default {
 
 				// Check Credit Card exp Date
 				const day = new Date()
-				const dd = String(day.getDate()).padStart(2, '0')
-				const mm = String(day.getMonth() + 1).padStart(2, '0')
-				const yyyy = day.getFullYear()
-
-				const today = yyyy + '-' + mm + '-' + dd
-				if (customer.EXP_DATE.toString().split('T')[0] < today) {
+				if (new Date(customer.EXP_DATE) < day) {
 					errors.CcNumber = 'Expired Credit Card'
 					throw errors
 				}

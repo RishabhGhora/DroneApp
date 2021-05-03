@@ -336,6 +336,7 @@ function DroneTechViewStoreOrders(props: any) {
 			update: (_, data: any) => {
 				if (data) {
 					errors = {}
+					setAssignErrors({})
 					setAssignedOrder(data.data.assignOrder)
 				}
 			},

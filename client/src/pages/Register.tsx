@@ -123,6 +123,7 @@ function Register(props: RegisterProps) {
 				EXP_DATE: $EXP_DATE
 			) {
 				Username
+				FirstName
 			}
 		}
 	`
@@ -131,6 +132,7 @@ function Register(props: RegisterProps) {
 		{
 			update: (_, data: any) => {
 				localStorage.setItem('Username', data.data.registerCustomer.Username)
+				localStorage.setItem('FirstName', data.data.registerCustomer.FirstName)
 				getUserType({
 					variables: { Username: data.data.registerCustomer.Username },
 				})
@@ -172,6 +174,7 @@ function Register(props: RegisterProps) {
 				StoreName: $StoreName
 			) {
 				Username
+				FirstName
 			}
 		}
 	`
@@ -180,6 +183,8 @@ function Register(props: RegisterProps) {
 		{
 			update: (_, data: any) => {
 				localStorage.setItem('Username', data.data.registerEmployee.Username)
+				console.log(data)
+				localStorage.setItem('FirstName', data.data.registerEmployee.FirstName)
 				getUserType({
 					variables: { Username: data.data.registerEmployee.Username },
 				})
@@ -255,8 +260,7 @@ function Register(props: RegisterProps) {
 				>
 					<FormLabel>Card Number</FormLabel>
 					<Input
-						type="number"
-						placeholder="1234123412341244"
+						placeholder="1234 1234 1234 1234"
 						onChange={(e) => setCcNumber(e.target.value)}
 						value={CcNumber}
 					/>

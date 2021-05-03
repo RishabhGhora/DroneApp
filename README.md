@@ -20,7 +20,7 @@ Grocery Drone Delivery App
    and added a AUTO_INCREMENT to the primary key for DRONE
    Enable this command with sql to ensure queries run on your machine. Can run in MySQL
    Workbench or through the comnand line.
-   `SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));`
+   `SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));`
 3. Rename variables in .env.example for your machine, everything should be the same except password
 4. Rename the .env.example file to .env `mv .env.example .env`
 5. Install packages `yarn install`

@@ -250,8 +250,7 @@ function CustomerChangeCreditCardInfo(props: any) {
 							>
 								<FormLabel textAlign="center">Credit Card Number</FormLabel>
 								<Input
-									type="number"
-									placeholder="1234123412341234"
+									placeholder="1234 1234 1234 1234"
 									value={CcNumber}
 									onChange={(e) => setCcNumber(e.target.value)}
 								/>

@@ -182,8 +182,15 @@ export default {
 					errors.State = 'State must be 2 digits'
 				}
 				// Check if valid ccnumber
-				if (CcNumber.length !== 16) {
-					errors.CcNumber = 'Invalid Credit Card Number'
+				const CcNumberParts = CcNumber.split(' ')
+				if (CcNumber.length !== 19 || CcNumberParts.length !== 4) {
+					errors.CcNumber =
+						'Invalid Credit Card number should be in **** **** **** **** format'
+				}
+				for (let i = 0; i < CcNumberParts.length; i++) {
+					if (isNaN(CcNumberParts[i] as any)) {
+						errors.CcNumber = 'Credit Card number should only contain number'
+					}
 				}
 				// Check if valid CVV
 				if (isNaN(CVV as any) || CVV.length !== 3) {
