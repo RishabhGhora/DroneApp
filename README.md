@@ -25,6 +25,7 @@ Grocery Drone Delivery App
 4. Rename the .env.example file to .env `mv .env.example .env`
 5. Install packages `yarn install`
 6. Run server `yarn dev`
+7. Note this should output database connected and server started on localhost:4000, if not please double check the .env file
 
 ### To Run client
 
